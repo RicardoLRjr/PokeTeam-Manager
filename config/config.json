@@ -1,8 +1,8 @@
 {
   "development": {
     "username": "root",
-    "password": "Mickey19",
-    "database": "lego_tracker_db",
+    "password": "alpha1",
+    "database": "pokemon_db",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "operatorsAliases": false
