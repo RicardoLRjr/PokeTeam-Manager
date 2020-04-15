@@ -33,6 +33,10 @@ app.get("/api/config", function (req, res) {
   });
 });
 
+// Routes from the routes folder
+require("./routes/html-routes.js")(app);
+// require("./routes/api-routes.js")(app);
+
 db.sequelize.sync().then(function () {
   app.listen(PORT, function () {
     console.log(`Server listening on: http://localhost:${PORT}`);
