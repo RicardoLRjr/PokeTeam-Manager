@@ -1,4 +1,4 @@
-const path = require("path");
+// const path = require("path");
 
 module.exports = function(app) {
   app.get("/", function(req, res) {
@@ -15,4 +15,4 @@ module.exports = function(app) {
   app.get("/Pokemon%20Manager", function (req, res){
     res.render("pokemanager");
   });
-}; 
+};
