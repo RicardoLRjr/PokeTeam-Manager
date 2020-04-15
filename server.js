@@ -23,19 +23,27 @@ app.set("view engine", "handlebars");
 
 // app.use(catRoutes);
 
-app.get("/", function (req, res) {
-  res.render("index");
-});
+// app.get("/", function (req, res) {
+//   res.render("index");
+// });
 
-app.get("/api/config", function (req, res) {
-  res.json({
-    success: true,
-  });
-});
+// app.get("/api/config", function (req, res) {
+//   res.json({
+//     success: true,
+//   });
+// });
+
+// app.get("/api/teams", function (req, res) {
+// db.Team.findAll()
+// .then(teams => {
+// console.log(teams);
+// res.json(teams);
+// })
+// })
 
 // Routes from the routes folder
 require("./routes/html-routes.js")(app);
-// require("./routes/api-routes.js")(app);
+require("./routes/api-routes.js")(app);
 
 db.sequelize.sync().then(function () {
   app.listen(PORT, function () {

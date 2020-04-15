@@ -1,36 +1,91 @@
- <nav class="navbar has-background-dark" role="navigation" aria-label="main navigation" id="top-nav">
-    <div class="navbar-brand">
-      <a class="navbar-item has-text-white"> 
-          Team Manager
-        <img src="">
-      </a>
-      <a id="burger-menu" role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
-        data-target="navbarBasicExample">
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-      </a>
-    </div>
-    <div class="navbar-end">
-      <a href="/" class="navbar-item has-text-light is-size-4" id="NavLink"> 
-      Home Page
-      </a>
-      <a href="/Pokemon Manager" class="navbar-item has-text-light is-size-4" id="NavLink"> 
-      Pokemon Manager
-      </a>
-
-    </div>
-  </nav>
+<nav class="navbar has-background-dark" role="navigation" aria-label="main navigation" id="top-nav">
+  <span class="navbar-brand">
+    <a class="navbar-item has-text-white"> 
+        Team Manager
+      <img src="../images/pokeball.png">
+    </a>
+    <a id="burger-menu" role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+      data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </span>
+  <a class="navbar-end">
+    <a href="/Pokemon Manager" class="navbar-item has-text-light is-size-4" id="NavLink"> 
+    Pokemon Manager
+    </a>
+    <a href="/" class="navbar-item has-text-light is-size-4" id="NavLink">
+    Home Page
+    </a>
+  </a>
+</nav>
+<div class="container">
+    <div class="block">
+<div class="columns">
+  <div class="column">
   <div class='tile is-ancestor'>
       <div class='tile is-vertical is-12 is-parent'>
           <div class='tile is-child notification is-primary'>
-              <p class='title'>Team A</p>
-          </div>
-          <div class='tile is-child notification is-primary'>
-              <p class='title'>Team B</p>
+              <h1 class='title'>Team A</h1>
+              <div class='columns'>
+              {{!-- Add cards for Pokemon members here --}}
+              {{> pokemon}}
+              </div>
+              <button class='button is-link is-rounded'>Add Pokemon</button>
           </div>
       </div>
   </div>
-
-
-
+  </div>
+  <div class="column">
+     <div class='tile is-ancestor'>
+      <div class='tile is-vertical is-12 is-parent'>
+          <div class='tile is-child notification is-primary'>
+              <h1 class='title'>Team B</h1>
+              <div class='columns'>
+              {{!-- Add cards for Pokemon members here --}}
+              {{> pokemon}}
+              </div>
+              <button class='button is-link is-rounded'>Add Pokemon</button>
+          </div>
+      </div>
+  </div></div>
+  </div>
+  </div>
+  <div class="block">
+      <div class="columns">
+  <div class="column">
+    <div class="column">
+     <div class='tile is-ancestor'>
+      <div class='tile is-vertical is-12 is-parent'>
+          <div class='tile is-child notification is-primary'>
+              <h1 class='title'>Team C</h1>
+              <div class='columns'>
+              {{!-- Add cards for Pokemon members here --}}
+              {{> pokemon}}
+              </div>
+              <button class='button is-link is-rounded'>Add Pokemon</button>
+          </div>
+      </div>
+  </div>
+  </div>
+  </div>
+  <div class="column">
+    <div class="column">
+     <div class='tile is-ancestor'>
+      <div class='tile is-vertical is-12 is-parent'>
+          <div class='tile is-child notification is-primary'>
+              <h1 class='title'>Team D</h1>
+              <div class='columns'>
+              {{!-- Add cards for Pokemon members here --}}
+              {{> pokemon}}
+              </div>
+              <button class='button is-link is-rounded'>Add Pokemon</button>
+          </div>
+      </div>
+  </div>
+  </div>
+  </div>
+  </div>
+</div>
+</div>
