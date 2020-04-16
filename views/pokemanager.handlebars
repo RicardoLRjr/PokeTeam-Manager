@@ -25,24 +25,23 @@
   <form>
     <label class="field">
       <label class="label">Pokemon Name or ID</label>
-      <input type="text" class="input createPokemon" placeholder="Enter Name">
+      <input type="text" class="input pokemonName" placeholder="Enter a Pokemon Name or ID">
     </label>
 
-    {{!-- <label class="field">
-      <label class="label">Pokemon ID</label>
-      <input type="text" class="input is-success" placeholder="Enter ID">
-    </label> --}}
-
-    {{!-- <div class="field">
-      <label class="label">Nickname</label>
-      <input type="text" class="input is-danger" placeholder="Enter Nickname">
-    </div> --}}
-
     <div class="control">
-      <button class="button is-primary">Submit</button>
+      <button class="button is-primary" id="addPokemon">Submit</button>
     </div>
   </form>
 </label>
+{{!-- Display searched Pokemon --}}
+{{!-- <div class='columns'>
+  {{#if pokesearch}}
+  {{#each pokesearch}}
+  {{> pokemonchoice}}
+  {{/each}}
+  {{/if}}
+</div> --}}
+{{!-- 
 {{!-- Found out we can add scripts to these --}}
 <script>
   $(document).ready(function(){
@@ -51,8 +50,9 @@
       var name = $('input').val().toLowerCase();
       queryurl = 'https://pokeapi.co/api/v2/pokemon/' + name;
       $.get(queryurl, function(data){
-        console.log(data);
+        {{!-- Now we build the data into the page --}}
+        
       })
     })
   })
-</script>
+</script> --}}

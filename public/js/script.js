@@ -1,25 +1,28 @@
 $(document).ready(function() {
 
-  $(".createPokemon").on("click", function(event) {
+  console.log("Page loaded with script.js")
+
+  $("#addTeam").on("click", function() {
     event.preventDefault();
-    if (!".createPokemon".val().trim().trim()) {
+    if (!$(".teamName").val().trim()) {
       return;
     }
-
+    console.log("You submitted!");
+    console.log($(".teamName").val().trim());
+    $.post("/api/teams", {teamName: $(".teamName").val().trim()})
+      .then(console.log("Submitted a team"));
   });
 
-  $(".createTeam").on("click", function(event) {
+  $("#addPokemon").on("click", function() {
     event.preventDefault();
-    if (!".createTeam".val().trim().trim()) {
+    if (!$(".pokemonName").val().trim()) {
       return;
     }
-    $.post("/api/teams", {teamName: nameInput.val().trim()})
-      .then(getAuthors);
+    console.log("You submitted!");
+    $.post("/api/pokemons",
+      $(".pokemonName").val().trim()
+    )
+      .then(console.log("Submitted a team"));
   });
-
-
-
-
-
 
 });
