@@ -1,6 +1,7 @@
 // const path = require("path");
 var Pokedex = require("pokedex-promise-v2");
 var P = new Pokedex();
+console.log(P);
 
 module.exports = function(app) {
   app.get("/", function(req, res) {
