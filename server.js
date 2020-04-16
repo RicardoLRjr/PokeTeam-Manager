@@ -18,29 +18,6 @@ var exphbs = require("express-handlebars");
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
-// Import routes and give the server access to them.
-// const catRoutes = require("./controllers/catsController.js");
-
-// app.use(catRoutes);
-
-// app.get("/", function (req, res) {
-//   res.render("index");
-// });
-
-// app.get("/api/config", function (req, res) {
-//   res.json({
-//     success: true,
-//   });
-// });
-
-// app.get("/api/teams", function (req, res) {
-// db.Team.findAll()
-// .then(teams => {
-// console.log(teams);
-// res.json(teams);
-// })
-// })
-
 // Routes from the routes folder
 require("./routes/html-routes.js")(app);
 require("./routes/api-routes.js")(app);
