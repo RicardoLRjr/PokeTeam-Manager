@@ -43,3 +43,16 @@
     </div>
   </form>
 </label>
+{{!-- Found out we can add scripts to these --}}
+<script>
+  $(document).ready(function(){
+    $('form').on('submit', function(event){
+      event.preventDefault();
+      var name = $('input').val().toLowerCase();
+      queryurl = 'https://pokeapi.co/api/v2/pokemon/' + name;
+      $.get(queryurl, function(data){
+        console.log(data);
+      })
+    })
+  })
+</script>
