@@ -14,7 +14,7 @@ $(document).ready(function() {
       return;
     }
     $.post("/api/teams", {teamName: nameInput.val().trim()})
-    .then(getAuthors)
+      .then(getAuthors);
   });
 
 
