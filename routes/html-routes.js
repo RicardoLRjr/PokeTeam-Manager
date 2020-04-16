@@ -12,6 +12,7 @@ var router = express.Router();
 
 // var pokemon = require("../models/pokemon.js");
 var team = require("../models/team.js");
+console.log(team);
 // var teampokemon = require("../models/teampokemon.js");
 
 router.get("/", function(req, res) {
