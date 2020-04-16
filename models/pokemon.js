@@ -1,6 +1,5 @@
 module.exports = function(sequelize, Datatype) {
   const Pokemon = sequelize.define("Pokemon", {
-    teamName: Datatype.STRING,
     pokedexId: Datatype.INTEGER,
     pokemonName: Datatype.STRING,
     pokeType1: Datatype.STRING,

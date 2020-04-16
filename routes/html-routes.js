@@ -17,4 +17,7 @@ module.exports = function(app) {
   app.get("/Pokemon%20Manager", function (req, res){
     res.render("pokemanager");
   });
+  app.get("/addTeam", function(req, res){
+    res.render("addTeam")
+  });
 };
