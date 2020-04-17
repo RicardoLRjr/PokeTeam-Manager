@@ -1,7 +1,7 @@
 <nav class="navbar has-background-dark" role="navigation" aria-label="main navigation" id="top-nav">
   <span class="navbar-brand">
-    <a class="navbar-item has-text-white"> 
-        Add Pokemon
+    <a class="navbar-item has-text-white">
+      Add Pokemon
       <img src="../images/pokeball.png">
     </a>
     <a id="burger-menu" role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
@@ -12,47 +12,44 @@
     </a>
   </span>
   <div class="navbar-end">
-    <a href="/editPokemon" class="navbar-item has-text-light is-size-4" id="NavLink"> 
-    Edit Pokemon
+    <a href="/editPokemon" class="navbar-item has-text-light is-size-4" id="NavLink">
+      Edit Pokemon
     </a>
     <a href="/" class="navbar-item has-text-light is-size-4" id="NavLink">
-    Home Page
+      Home Page
     </a>
   </div>
 </nav>
 
-<label class="container">
-  <form>
+<div class="container">
+  <form id="addPokemon">
     <label class="field">
       <label class="label">Pokemon Name or ID</label>
       <input type="text" class="input pokemonName" placeholder="Enter a Pokemon Name or ID">
     </label>
 
     <div class="control">
-      <button class="button is-primary addPokemon">Submit</button>
+      <button class="button is-primary addPokemon">Add a Pokemon</button>
+    </div>
+    <div class="control">
+      <button class="button is-primary savePokemon">Save a Pokemon</button>
     </div>
   </form>
-</label>
-{{!-- Display searched Pokemon --}}
-{{!-- <div class='columns'>
-  {{#if pokesearch}}
-  {{#each pokesearch}}
-  {{> pokemonchoice}}
-  {{/each}}
-  {{/if}}
-</div> --}}
-{{!-- 
-{{!-- Found out we can add scripts to these --}}
-<script>
-  $(document).ready(function(){
-    $('form').on('submit', function(event){
-      event.preventDefault();
-      var name = $('input').val().toLowerCase();
-      queryurl = 'https://pokeapi.co/api/v2/pokemon/' + name;
-      $.get(queryurl, function(data){
-        {{!-- Now we build the data into the page --}}
-        
-      })
-    })
-  })
-</script> --}}
+</div>
+<div class='columns' id='pokeSelection' style='display: none'>
+  <div class='column is-4'>
+    <div class='card'>
+      <div class='card-image'>
+        <img />
+      </div>
+      <p class='card-header-title'>Pokemon Nickname</p>
+      <div class='card-content'>
+        <p>Abilities: </p>
+      </div>
+      <div class='card-footer'>
+        <p class='card-footer-item'>Pokedex ID</p>
+        <p class='card-footer-item'>Type: </p>
+      </div>
+    </div>
+  </div>
+</div>
