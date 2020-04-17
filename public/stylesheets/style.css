@@ -3,7 +3,6 @@ h1 {
   border: black;
   background-color: white;
   contain: inherit;
-  /* width: fit-content; */
   padding: 10px;
   text-align: center;
 }
