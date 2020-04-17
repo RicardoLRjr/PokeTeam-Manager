@@ -76,10 +76,23 @@ module.exports = function(app) {
   });
 
   app.post("/api/pokemons", function(req, res) {
-    db.Pokemon.create(req.body)
-      .then(function(dbPokemon){
-        res.json(dbPokemon);
-      });
+    console.log(req.body.name);
+    P.getPokemonByName(req.body.name.toLowerCase())
+      .then((response) => {
+        console.log(response);
+        db.Pokemon.create({
+          pokemonSprite: response.sprites.front_default,
+          pokedexId: response.id,
+          pokemonName: response.name,
+          pokeType1: response.types[0].type.name,
+          abilities: response.abilities[0].ability.name,
+          nickname: response.name
+        })
+          .then(function(dbPokemon){
+            res.json(dbPokemon);
+          });
+      })
+      .catch(err => console.log(err));
   });
 
   // Add Pokemon to database with search by name
