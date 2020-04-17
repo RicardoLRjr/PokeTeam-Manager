@@ -8,6 +8,19 @@ const db = require("./models");
 
 app.use(express.static("public"));
 
+// if (process.env.JAWSDB_URL) {
+//   console.log("successfully connected");
+//   connection = mysql.createConnection(process.env.JAWSDB_URL);
+// } else {
+//   connection = mysql.createConnection({
+//     host: "localhost",
+//     port: 3306,
+//     user: "root",
+//     password: "alpha1",
+//     database: "pokemon_DB",
+//   });
+// }
+
 // Parse application body as JSON
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
