@@ -3,6 +3,8 @@
 
 // Requiring our models
 var db = require("../models");
+var PokeDex = require("pokedex-promise-v2");
+var P = new PokeDex();
 
 //Gets all teams; include needed in order to provide left outer join info
 module.exports = function(app) {
@@ -80,6 +82,18 @@ module.exports = function(app) {
       });
   });
 
+  // Add Pokemon to database with search by name
+  app.post("/api/pokemons/:name", function(req, res) {
+    var name = req.params.name.toLowerCase();
+    P.getPokemonByName(name).then(response => {
+      res.json(response).end();
+    });
+    // db.Pokemon.create(req.body)
+    //   .then(function(dbPokemon){
+    //     res.json(dbPokemon);
+    //   });
+  });
+
   app.delete("/api/pokemons/:id", function(req, res) {
     db.Pokemon.destroy({
       where: {
@@ -100,5 +114,12 @@ module.exports = function(app) {
       }).then(function(dbPokemon){
       res.json(dbPokemon);
     });
+  });
+
+  app.post("/api/teampokemon/:id", function(req, res) {
+    db.TeamPokemon.create({ teamID: req.params.id, pokemonID: req.body})
+      .then(function(teamPokemon) {
+        res.json(teamPokemon);
+      });
   });
 };

@@ -1,38 +1,27 @@
-  <nav class="navbar has-background-dark" role="navigation" aria-label="main navigation" id="top-nav">
-    <div class="navbar-brand">
-        <a class="navbar-item has-text-white"> 
-        Pokemon Team Manager
-      <img src="../images/pokeball.png">
+<nav class="navbar has-background-dark" role="navigation" aria-label="main navigation" id="top-nav">
+  <img class="navbar-brand">
+  <a class="navbar-item has-text-white">
+    Pokemon Team Manager
+    <img src="../images/pokeball.png">
+  </a>
+  <a id="burger-menu" role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+    data-target="navbarBasicExample">
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+  </a>
+  </img>
+  <div class="navbar-end">
+    <a href="/viewAllPokemon" class="navbar-item has-text-light is-size-4 NavLink">
+      View Pokemon
     </a>
-      <a id="burger-menu" role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
-        data-target="navbarBasicExample">
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-      </a>
-    </div>
-    <div class="navbar-end">
-      <a href="/addTeam" class="navbar-item has-text-light is-size-4 NavLink"> 
-          Add Team
-      </a>
-       <a href="/editTeam" class="navbar-item has-text-light is-size-4 NavLink">
-          Edit Team
-      </a>
-      <a href="/addPokemon" class="navbar-item has-text-light is-size-4 NavLink"> 
-          Add Pokemon
-      </a>
-       <a href="/editPokemon" class="navbar-item has-text-light is-size-4 NavLink"> 
-          Edit Pokemon
-      </a>
-        <a href="/viewPokemon" class="navbar-item has-text-light is-size-4 NavLink"> 
-          View Pokemon
-      </a>
-    </div>
-    </div>
-  </nav>
+  </div>
+  </div>
+</nav>
 
 <div class="container">
-    <h1>Team 1</h1>
+  {{#each teams}}
+  <h1>{{teamName}}</h1>
   <table class="table is-bordered">
     <thead>
       <tr>
@@ -42,49 +31,25 @@
         <th>Type 1</th>
         <th>Type 2</th>
         <th>Ability</th>
-        <td><button>Add Pokemon</button></td> 
+        <td><button class="addPokemonPage">Add Pokemon</button></td>
       </tr>
     </thead>
     <tbody>
+      {{#each pokemons}}
       <tr>
-        <td>sprite goes here!</td>
-        <td>Pikachu</td>
-        <td>025</td>
-        <td>Electric</td>
-        <td>N/A</td>
-        <td>Static</td>
-        <td><button>Edit Pokemon</button></td> 
+        <td>{{pokemonSprite}}</td>
+        <td>{{pokemonName}}</td>
+        <td>{{pokemonID}}</td>
+        <td>{{pokeType1}}</td>
+        <td>{{pokeType2}}</td>
+        <td>{{abilities}}</td>
+        <td><button class="editPokemonPage">Edit Pokemon</button></td>
       </tr>
-      <tr>
-<td>sprite goes here!</td>
-      <td>Bulbasaur</td>
-        <td>001</td>
-        <td>Grass</td>
-        <td>Poison</td>
-        <td>Overgrow</td>  
-        <td><button>Edit Pokemon</button></td> 
-      </tr>
-      <tr>
-        <td>sprite goes here!</td>
-        <td>Arceus</td>
-        <td>493</td>
-        <td>Normal</td>
-        <td>N/A</td>
-        <td>Multitype</td>  
-        <td><button>Edit Pokemon</button></td> 
-      </tr>
-      <tr>
-        <td>sprite goes here!</td>
-        <td>Ho-Oh</td>
-        <td>250</td>
-        <td>Fire</td>
-        <td>Flying</td>
-        <td>Pressure</td>
-        <td><button>Edit Pokemon</button></td> 
-      </tr>
+      {{/each}}
     </tbody>
   </table>
-  <button>Add Team</button>
-  <Button>Edit Team</Button>
-</div>
 
+  {{/each}}
+  <button class="addTeamPage">Add Team</button>
+  <Button class="editTeamPage">Edit Team</Button>
+</div>
