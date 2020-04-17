@@ -72,8 +72,11 @@ router.get("/editPokemon", function (req, res){
 
 router.get("/viewAllPokemon", function (req, res){
   db.Pokemon.findAll({})
-    .then(function(dbTeam){
-      res.render("viewAllPokemon", dbTeam);
+    .then(function(data){
+      var pokemonObject = {
+        pokemons: data
+      };
+      res.render("viewAllPokemon", pokemonObject);
     });
 });
 

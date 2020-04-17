@@ -5,5 +5,9 @@ $(document).ready(function() {
     if (!$(".Pokemon").val().trim()) {
       return;
     }
+    $.put("/api/pokemons",
+      $(".pokemonName").val().trim()
+    )
+      .then(console.log("Submitted a pokemon to team"));
   });
 });

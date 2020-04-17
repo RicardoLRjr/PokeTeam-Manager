@@ -20,14 +20,31 @@ $(document).ready(function() {
       return;
     }
     console.log("You entered a name: " + pokeName);
-    $.post("/api/pokemons/" + pokeName
-    )
+    $.post("/api/pokemons/" + pokeName)
       .then(data => {
         console.log("Submitted a Pokemon");
         console.log(data);
+        // Getting the abilities
+        async function getAbilities(jqobj){
+          for (let items of data.abilities){
+            var str = "";
+            var paragraph = $("<p>");
+            str += items.ability.name;
+            await $.get(items.ability.url, data => {
+              console.log(data);
+              str += `: ${data.effect_entries[0].effect}\n`;
+            });
+            console.log(str);
+            paragraph.text(str);
+            jqobj.append(paragraph);
+          }
+        }
+
         // Styling card to display pokemon
         $("#pokeSelection").attr("style", "display: block");
         $("#pokeSelection img").attr("src", data.sprites.front_default);
+        $("#pokeSelection .card-content").empty();
+        getAbilities($("#pokeSelection .card-content"));
         $("#pokeSelection .card-header-title").text(data.name);
         $("#pokeSelection .card-footer-item:first-child").text(data.id);
         var typeString = "";
@@ -42,6 +59,25 @@ $(document).ready(function() {
         $("#pokeSelection .card-footer-item:last-child").text(typeString);
       });
   });
+
+  $(".savePokemon").on("click", function() {
+    event.preventDefault();
+    if (!$(".pokemonName").val().trim()) {
+      return;
+    }
+    $.post("/api/pokemons/", {name: $(".pokemonName").val().trim()});
+  });
+
+
+  // $(".addToTeam").on("click", function(){
+  //   event.preventDefault();
+  //   if (!$(".pokemonName").val().trim()) {
+  //     return;
+  //   }
+  //   console.log("You added this pokemon to a team!");
+  //   $.put("api/teams",
+  //   $.teamname).val().trim())
+  // });
 
   $(".editTeam").on("click", function() {
     event.preventDefault();
