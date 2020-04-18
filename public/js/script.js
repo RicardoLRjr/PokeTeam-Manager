@@ -66,11 +66,14 @@ $(document).ready(function() {
     if (!$(".pokemonName").val().trim()) {
       return;
     }
-    $.post("/api/pokemons/", {name: $(".pokemonName").val().trim()});
+    $.post("/api/pokemons/", {name: $(".pokemonName").val().trim()}).then(function() {
+      event.preventDefault();
+      document.location.href="/viewAllPokemon";
+    });
   });
 
 
-  $(".addPokemonToTeam").on("click", function(){
+  $(".addPokemonToTeam").on("clic", function(){
     event.preventDefault();
     var pokeID = $(this).attr("data-id");
     $.post("api/teampokemon/" + pokeID, {
@@ -116,16 +119,24 @@ $(document).ready(function() {
     )
       .then(console.log("Submitted a team"));
   });
+  $(".addToMainPage").on("click", function(){
+    event.preventDefault();
+    document.location.href="/";
+  });
 
+  $(".addToTeam").on("click", function(){
+    event.preventDefault();
+    document.location.href="/editTeam";
+  });
   // $(".addTeamPage").on("click", function() {
   //   event.preventDefault();
   //   window.location.href="/addTeam";
   // });
 
-  // $(".addPokemonPage").on("click", function() {
-  //   event.preventDefault();
-  //   window.location.href="/addPokemon";
-  // });
+  $(".addPokemonToTeam").on("click", function() {
+    event.preventDefault();
+    document.location.href="/addPokemon";
+  });
 
 
   // $(".deletePokemon").on("click", function() {
