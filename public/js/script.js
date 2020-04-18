@@ -29,13 +29,13 @@ $(document).ready(function() {
           for (let items of data.abilities){
             var str = "";
             var paragraph = $("<p>");
-            str += items.ability.name;
+            str += `<strong>${items.ability.name}: </strong>`;
             await $.get(items.ability.url, data => {
               console.log(data);
-              str += `: ${data.effect_entries[0].effect}\n`;
+              str += `${data.effect_entries[0].effect}\n`;
             });
             console.log(str);
-            paragraph.text(str);
+            paragraph.html(str);
             jqobj.append(paragraph);
           }
         }
@@ -44,6 +44,7 @@ $(document).ready(function() {
         $("#pokeSelection").attr("style", "display: block");
         $("#pokeSelection img").attr("src", data.sprites.front_default);
         $("#pokeSelection .card-content").empty();
+        $("#pokeSelection .card-content").html("<p><strong>Abilities: </strong></p>");
         getAbilities($("#pokeSelection .card-content"));
         $("#pokeSelection .card-header-title").text(data.name);
         $("#pokeSelection .card-footer-item:first-child").text(data.id);
@@ -65,19 +66,20 @@ $(document).ready(function() {
     if (!$(".pokemonName").val().trim()) {
       return;
     }
-    $.post("/api/pokemons/", {name: $(".pokemonName").val().trim()});
+    $.post("/api/pokemons/", {name: $(".pokemonName").val().trim()}).then(function() {
+      event.preventDefault();
+      document.location.href="/viewAllPokemon";
+    });
   });
 
 
-  // $(".addToTeam").on("click", function(){
-  //   event.preventDefault();
-  //   if (!$(".pokemonName").val().trim()) {
-  //     return;
-  //   }
-  //   console.log("You added this pokemon to a team!");
-  //   $.put("api/teams",
-  //   $.teamname).val().trim())
-  // });
+  $(".addPokemonToTeam").on("clic", function(){
+    event.preventDefault();
+    var pokeID = $(this).attr("data-id");
+    $.post("api/teampokemon/" + pokeID, {
+
+    });
+  });
 
   $(".editTeam").on("click", function() {
     event.preventDefault();
@@ -88,7 +90,10 @@ $(document).ready(function() {
     $.put("/api/teams",
       $(".teamName").val().trim()
     )
-      .then(console.log("Submitted a team"));
+      .then(console.log("Submitted a team")).
+      then( function() {
+        window.location.href="/";
+      });
   });
 
   $(".editPokemon").on("click", function() {
@@ -114,16 +119,25 @@ $(document).ready(function() {
     )
       .then(console.log("Submitted a team"));
   });
-
-  $(".addTeamPage").on("click", function() {
+  $(".addToMainPage").on("click", function(){
     event.preventDefault();
-    window.location.href="/addTeam";
+    document.location.href="/";
   });
 
-  $(".addPokemonPage").on("click", function() {
+  $(".addToTeam").on("click", function(){
     event.preventDefault();
-    window.location.href="/addPokemon";
+    document.location.href="/editTeam";
   });
+  // $(".addTeamPage").on("click", function() {
+  //   event.preventDefault();
+  //   window.location.href="/addTeam";
+  // });
+
+  $(".addPokemonToTeam").on("click", function() {
+    event.preventDefault();
+    document.location.href="/addPokemon";
+  });
+
 
   // $(".deletePokemon").on("click", function() {
   //   event.preventDefault();

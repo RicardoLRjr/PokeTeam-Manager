@@ -130,7 +130,7 @@ module.exports = function(app) {
   });
 
   app.post("/api/teampokemon/:id", function(req, res) {
-    db.TeamPokemon.create({ teamID: req.params.id, pokemonID: req.body})
+    db.TeamPokemon.create({ pokemonID: req.params.id, teamID: req.body})
       .then(function(teamPokemon) {
         res.json(teamPokemon);
       });

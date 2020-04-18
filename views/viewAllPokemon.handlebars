@@ -22,7 +22,8 @@
 <div class="container">
   <h1>List of All Pokemon added to the App</h1>
   {{#each pokemons}}
-  {{pokemonName}}
-  <button class="button is-primary addToTeam" data-id="{{id}}">Add to a Team</button>
+  <h2 class="pokemonname">{{this.pokemonName}}
+  </h2>
+  <button class="button is-primary addToTeam" data-id={{this.id}}">Add to a Team</button>
   {{/each}}
 </div>
