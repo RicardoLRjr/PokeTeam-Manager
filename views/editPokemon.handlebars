@@ -1,35 +1,39 @@
-{{!-- <nav class="navbar has-background-dark" role="navigation" aria-label="main navigation" id="top-nav">
-  <div class="navbar-brand">
-    <a class="navbar-item has-text-white"> 
-        Edit Pokemon
-      <img src="../images/pokeball.png">
-    </a>
-    <a id="burger-menu" role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
-      data-target="navbarBasicExample">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
-  <div class="navbar-end">
-    <a href="/" class="navbar-item has-text-light is-size-4" id="NavLink">
-    Home Page
-    </a>
-  </div>
-</nav>
-<div class="container" id="pokemondisplay">
-<h1>Pokemon Name: Pikachu</h1>
-
-<p>Sprite: (image goes here)</p>
-
-<p>Pokedex ID: 025</p>
-
-<p>Type 1: Electric</p>
-
-<p>Type 2</p>
-
-<p>Abilities: Gun.</p>
-
-<p>Nickname: Pikatyu</p>
-
-</div> --}}
+<div class="container">
+  <h1 class="viewPokemon">{{nickname}}
+    <button class="saveOne" data-id={{id}}>Save Edits</button>
+  </h1>
+  <table class="table is-bordered">
+    <thead>
+      <tr>
+        <th>Sprite</th>
+        <th>Pokemon</th>
+        <th>PokeDex ID</th>
+        <th>Type 1</th>
+        <th>Type 2</th>
+        <th>Ability</th>
+        <th>On Team:</th>
+        <th>Options</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><img src="https://img.pokemondb.net/artwork/vector/{{pokemonName}}.png" alt="picture of {{pokemonName}}"></a></td>
+        <td>
+          <label class="field">
+            <label class="label viewPokemon">{{nickname}}</label>
+            <input type="text" class="input nickname" placeholder="{{nickname}}">
+          </label>
+        </td>
+        <td>{{pokedexId}}</td>
+        <td>{{pokeType1}}</td>
+        <td>{{pokeType2}}</td>
+        <td>{{abilities}}</td>
+        <td>{{#each Teams}}{{teamName}}<br>{{/each}}</td>
+        <td>
+          <button class="deletePokemon" data-id={{id}}>Delete Pokemon</button>
+          <button class="removeTeamAssociations" data-id={{id}}>Clear Linked Teams</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
