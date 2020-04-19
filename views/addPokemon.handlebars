@@ -4,7 +4,9 @@
   <form class="viewPokemon">
     <label class="field">
       <label class="label viewPokemon align">Pokemon Name or ID</label>
-      <input type="text" class="input pokemonName" placeholder="Enter a Pokemon Name or ID">
+      <input type="text" class="input pokemonName" list="pokeJSON" id="pokeInput" placeholder="Enter a Pokemon Name or ID">
+      <datalist id="pokeJSON">
+      </datalist>
     </label>
     <div class="control align">
       <button class="button is-primary previewPokemon">Preview Your Pokemon!</button>

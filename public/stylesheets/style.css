@@ -114,3 +114,7 @@ p {
 .stack {
   display: block;
 }
+
+#footerText {
+  color: rgba(245, 245, 245, 0.993) !important;
+}

@@ -1,6 +1,5 @@
 $(document).ready(function () {
   console.log("Page loaded with script.js");
-
   $(".addTeam").on("click", function () {
     event.preventDefault();
     if (!$(".teamName").val().trim()) {
@@ -214,3 +213,4 @@ $(document).ready(function () {
     });
   });
 });
+

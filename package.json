@@ -28,6 +28,7 @@
     "mysql": "^2.18.1",
     "mysql2": "^2.1.0",
     "pokedex-promise-v2": "^3.2.0",
+    "pokemon": "^2.0.2",
     "sequelize": "^5.21.6"
   }
 }
