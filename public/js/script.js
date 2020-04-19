@@ -76,9 +76,9 @@ $(document).ready(function () {
 
   $(".addToTeam").on("click", function () {
     event.preventDefault();
-    teamId = $(this).data("teamid");
-    pokemonId = $(this).data("id");
-    data = {
+    var teamId = $(this).data("teamid");
+    var pokemonId = $(this).data("id");
+    var data = {
       teamId: teamId,
       pokemonId: pokemonId,
     };
@@ -92,18 +92,20 @@ $(document).ready(function () {
 
   $(".editTeam").on("click", function () {
     event.preventDefault();
-    teamId = $(this).data("id");
+    var teamId = $(this).data("id");
     document.location.href = "/editTeam/" + teamId;
   });
 
   $(".saveTeam").on("click", function () {
     event.preventDefault();
-    teamId = $(this).data("id");
+    var teamId = $(this).data("id");
+    var teamName = $(this).data("name");
+    var newName;
     if (!$(".teamName").val().trim()) {
-      return;
+      newName = teamName;
+    } else {
+      newName = $(".teamName").val().trim();
     }
-    console.log($(".teamName").val().trim());
-    var newName = $(".teamName").val().trim();
     $.ajax({
       url: "/api/teams/" + teamId,
       method: "PUT",
@@ -142,7 +144,7 @@ $(document).ready(function () {
       method: "DELETE",
       success: function(result) {
         console.log(result);
-        location.reload();
+        document.location.href = "/viewAllPokemon";
       },
       error: function(error) {
         throw error;
@@ -174,18 +176,21 @@ $(document).ready(function () {
 
   $(".saveOne").on("click", function () {
     event.preventDefault();
-    pokemonId = $(this).data("id");
+    var pokemonId = $(this).data("id");
+    var nickname = $(this).data("name");
+    var newName;
     if (!$(".nickname").val().trim()) {
-      return;
+      newName = nickname;
+    } else {
+      newName = $(".nickname").val().trim();
     }
     console.log($(".nickname").val().trim());
-    var newName = $(".nickname").val().trim();
     $.ajax({
       url: "/api/pokemons/" + pokemonId,
       method: "PUT",
       data: {nickname: newName},
       success: function() {
-        location.reload();
+        document.location.href = "/";
       },
       error: function(error) {
         throw error;

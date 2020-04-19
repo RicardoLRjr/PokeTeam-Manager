@@ -130,11 +130,11 @@ router.get("/viewAllPokemon", function (req, res) {
 
 module.exports = function (app) {
   app.use("/", router),
-    app.use("/api/config", router),
-    app.use("/addToTeam/:id", router),
-    app.use("/addPokemon", router),
-    app.use("/addTeam", router),
-    app.use("/editTeam/:id", router),
-    app.use("/editPokemon/:id", router),
-    app.use("/viewAllPokemon", router);
+  app.use("/api/config", router),
+  app.use("/addToTeam/:id", router),
+  app.use("/addPokemon", router),
+  app.use("/addTeam", router),
+  app.use("/editTeam/:id", router),
+  app.use("/editPokemon/:id", router),
+  app.use("/viewAllPokemon", router);
 };

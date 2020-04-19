@@ -30,7 +30,7 @@
         <td>{{abilities}}</td>
         <td>{{#each Teams}}{{teamName}}<br>{{/each}}</td>
         <td>
-          <button class="deletePokemon" data-id={{id}}>Delete Pokemon</button>
+          <button class="deletePokemon" data-id={{id}} data-name="{{nickname}}">Delete Pokemon</button>
           <button class="removeTeamAssociations" data-id={{id}}>Clear Linked Teams</button>
         </td>
       </tr>
