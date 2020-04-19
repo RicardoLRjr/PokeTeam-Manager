@@ -32,26 +32,32 @@
   </a>
   </img>
   <div class="navbar-end">
-    <a href="/viewAllPokemon" class="navbar-item has-text-light is-size-4 NavLink">
-      View All Pokemon
+    <div class="navbar-item has-dropdown is-hoverable">
+     <a class="navbar-link has-text-light is-size-4">
+      Team Management Options
     </a>
-    <p class="navbar-item has-text-light is-size-4">|</p>
-    <a href="/addPokemon" class="navbar-item has-text-light is-size-4 NavLink">
-      Add New Pokemon
-    </a>
-    <p class="navbar-item has-text-light is-size-4">|</p>
-    <a href="/addTeam" class="navbar-item has-text-light is-size-4 NavLink">
+
+    <div class="navbar-dropdown">
+      <a href="/addTeam" class="navbar-item has-text-dark is-size-4 NavLink">
       Add New Team
     </a>
+    <a href="/addPokemon" class="navbar-item has-text-dark is-size-4 NavLink">
+      Add New Pokemon
+    </a>
+    <a href="/viewAllPokemon" class="navbar-item has-text-dark is-size-4">
+      View All Pokemon
+    </a>
+    </div>
   </div>
   </div>
 </nav>
+
 {{{ body }}}
 
-<footer class="footer">
+<footer class="footer has-background-dark">
   <div class="content has-text-centered">
-    <p>
-      <strong>A PCRTJ Production</strong>
+    <p id="footerText">
+      A PCRTJ Production 😀
     </p>
   </div>
 </footer>
