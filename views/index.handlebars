@@ -1,33 +1,9 @@
-<nav class="navbar has-background-dark" role="navigation" aria-label="main navigation" id="top-nav">
-  <img class="navbar-brand">
-  <a class="navbar-item has-text-white">
-    Pokemon Team Manager
-    <img src="../images/pokeball.png">
-  </a>
-  <a id="burger-menu" role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
-    data-target="navbarBasicExample">
-    <span aria-hidden="true"></span>
-    <span aria-hidden="true"></span>
-    <span aria-hidden="true"></span>
-  </a>
-  </img>
-  <div class="navbar-end">
-    <a href="/viewAllPokemon" class="navbar-item has-text-light is-size-4 NavLink">
-      View Pokemon
-    </a>
-    <a href="/addPokemon" class="navbar-item has-text-light is-size-4 NavLink">
-      Add Pokemon
-    </a>
-    <a href="/addTeam" class="navbar-item has-text-light is-size-4 NavLink">
-      Add Team
-    </a>
-  </div>
-  </div>
-</nav>
-
 <div class="container">
   {{#each teams}}
-  <h1>{{teamName}}</h1>
+  <h1 class="viewPokemon">{{teamName}}
+    <button class="editTeam" data-id={{id}}>Edit Team Name</button>
+    <button class="removePokemonAssociations" data-id={{id}}>Clear Linked Pokemon</button>
+  </h1>
   <table class="table is-bordered">
     <thead>
       <tr>
@@ -37,24 +13,28 @@
         <th>Type 1</th>
         <th>Type 2</th>
         <th>Ability</th>
-        <td><button class="addPokemonToTeam">Add Pokemon to Team</button></td>
+        <td>
+          <button class="addPokemonToTeam" data-id={{id}}>Add Pokemon</button>
+          <button class="deleteTeam" data-id={{id}}>Delete Team</button>
+        </td>
       </tr>
     </thead>
     <tbody>
-      {{#each pokemons}}
+      {{#each Pokemons}}
       <tr>
-        <td>{{pokemonSprite}}</td>
-        <td>{{pokemonName}}</td>
-        <td>{{pokemonID}}</td>
+        <td><a class="editOne" data-id={{id}}><img src="https://img.pokemondb.net/artwork/vector/{{pokemonName}}.png" alt="picture of {{pokemonName}}"></a></td>
+        <td>{{nickname}}</td>
+        <td>{{pokedexId}}</td>
         <td>{{pokeType1}}</td>
         <td>{{pokeType2}}</td>
         <td>{{abilities}}</td>
-        <td><button class="editPokemonPage">Edit Pokemon</button></td>
+        <td>
+          <button class="editOne" data-id={{id}}>Edit Pokemon</button>
+        </td>
       </tr>
       {{/each}}
     </tbody>
   </table>
 
   {{/each}}
-  <button class="editTeamPage">Edit Team</Button>
 </div>

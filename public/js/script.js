@@ -1,153 +1,216 @@
-$(document).ready(function() {
-
+$(document).ready(function () {
   console.log("Page loaded with script.js");
 
-  $(".addTeam").on("click", function() {
+  $(".addTeam").on("click", function () {
     event.preventDefault();
     if (!$(".teamName").val().trim()) {
       return;
     }
     console.log("You submitted!");
     console.log($(".teamName").val().trim());
-    $.post("/api/teams", {teamName: $(".teamName").val().trim()})
-      .then(console.log("Submitted a team"));
+    $.post("/api/teams", { teamName: $(".teamName").val().trim() }).then(
+      function () {
+        document.location.href = "/";
+      }
+    );
   });
 
-  $(".addPokemon").on("click", function() {
+  $(".previewPokemon").on("click", function () {
     event.preventDefault();
     var pokeName = $(".pokemonName").val().trim();
     if (!pokeName) {
       return;
     }
-    console.log("You entered a name: " + pokeName);
-    $.post("/api/pokemons/" + pokeName)
-      .then(data => {
-        console.log("Submitted a Pokemon");
-        console.log(data);
-        // Getting the abilities
-        async function getAbilities(jqobj){
-          for (let items of data.abilities){
-            var str = "";
-            var paragraph = $("<p>");
-            str += `<strong>${items.ability.name}: </strong>`;
-            await $.get(items.ability.url, data => {
-              console.log(data);
-              str += `${data.effect_entries[0].effect}\n`;
-            });
-            console.log(str);
-            paragraph.html(str);
-            jqobj.append(paragraph);
-          }
+    $.get("/api/pokemons/" + pokeName).then((data) => {
+      console.log(data);
+      $("#pokeSelection").attr("style", "display: block");
+      $("#pokeSelection img").attr(
+        "src",
+        "https://img.pokemondb.net/artwork/vector/" + data.pokemonName + ".png"
+      );
+      $("#pokeSelection img").attr("alt", "image of a " + data.nickname);
+      async function getAbilities(jqobj) {
+        for (let items of data.abilities) {
+          var str = "";
+          var paragraph = $("<p class='bottomPadding'>");
+          str += `<strong>${items.name}: </strong>${items.description}`;
+          console.log(str);
+          paragraph.html(str);
+          jqobj.append(paragraph);
         }
-
-        // Styling card to display pokemon
-        $("#pokeSelection").attr("style", "display: block");
-        $("#pokeSelection img").attr("src", data.sprites.front_default);
-        $("#pokeSelection .card-content").empty();
-        $("#pokeSelection .card-content").html("<p><strong>Abilities: </strong></p>");
-        getAbilities($("#pokeSelection .card-content"));
-        $("#pokeSelection .card-header-title").text(data.name);
-        $("#pokeSelection .card-footer-item:first-child").text(data.id);
-        var typeString = "";
-        for (let pos of data.types){
-          var type = pos.type.name;
-          console.log(type);
-          typeString += type + ", ";
-          console.log(typeString);
-        }
-        // Taking out the last comma
-        typeString.replace(/, $/, "");
-        $("#pokeSelection .card-footer-item:last-child").text(typeString);
-      });
+      }
+      $("#pokeSelection .card-content").empty();
+      $("#pokeSelection .card-content").html(
+        "<h3 class='viewPokemon align bottomMargin'><strong>Abilities</strong></h3>"
+      );
+      getAbilities($("#pokeSelection .card-content"));
+      $("#pokeSelection .name").text(data.nickname);
+      $("#pokeSelection .pokeID").text("Pokedex ID: " + data.pokedexId);
+      if (data.pokeType2) {
+        $("#pokeSelection .typePreview").text(
+          data.pokeType1 + "/" + data.pokeType2
+        );
+      } else {
+        $("#pokeSelection .typePreview").text(data.pokeType1);
+      }
+    });
   });
 
-  $(".savePokemon").on("click", function() {
+  $(".savePokemon").on("click", function () {
     event.preventDefault();
     if (!$(".pokemonName").val().trim()) {
       return;
     }
-    $.post("/api/pokemons/", {name: $(".pokemonName").val().trim()}).then(function() {
-      event.preventDefault();
-      document.location.href="/viewAllPokemon";
-    });
+    $.post("/api/pokemons/", { name: $(".pokemonName").val().trim() }).then(
+      () => {
+        document.location.href = "/viewAllPokemon";
+      }
+    );
   });
 
-
-  $(".addPokemonToTeam").on("clic", function(){
+  $(".addPokemonToTeam").on("click", function () {
     event.preventDefault();
-    var pokeID = $(this).attr("data-id");
-    $.post("api/teampokemon/" + pokeID, {
-
-    });
+    teamId = $(this).data("id");
+    document.location.href = "/addToTeam/" + teamId;
   });
 
-  $(".editTeam").on("click", function() {
+  $(".addToTeam").on("click", function () {
     event.preventDefault();
+    var teamId = $(this).data("teamid");
+    var pokemonId = $(this).data("id");
+    var data = {
+      teamId: teamId,
+      pokemonId: pokemonId,
+    };
+    console.log(data);
+    $.post("/api/teampokemon", { teamId: teamId, pokemonId: pokemonId }).then(
+      function () {
+        document.location.href = "/";
+      }
+    );
+  });
+
+  $(".editTeam").on("click", function () {
+    event.preventDefault();
+    var teamId = $(this).data("id");
+    document.location.href = "/editTeam/" + teamId;
+  });
+
+  $(".saveTeam").on("click", function () {
+    event.preventDefault();
+    var teamId = $(this).data("id");
+    var teamName = $(this).data("name");
+    var newName;
     if (!$(".teamName").val().trim()) {
-      return;
+      newName = teamName;
+    } else {
+      newName = $(".teamName").val().trim();
     }
-    console.log("You submitted!");
-    $.put("/api/teams",
-      $(".teamName").val().trim()
-    )
-      .then(console.log("Submitted a team")).
-      then( function() {
-        window.location.href="/";
-      });
+    $.ajax({
+      url: "/api/teams/" + teamId,
+      method: "PUT",
+      data: {teamName: newName},
+      success: function(result) {
+        console.log(result);
+        document.location.href = "/";
+      },
+      error: function(error) {
+        throw error;
+      }
+    });
   });
 
-  $(".editPokemon").on("click", function() {
+  $(".deleteTeam").on("click", function () {
     event.preventDefault();
-    if (!$(".pokemonName").val().trim()) {
-      return;
+    teamId = $(this).data("id");
+    $.ajax({
+      url: "/api/teams/" + teamId,
+      method: "DELETE",
+      success: function(result) {
+        console.log(result);
+        location.reload();
+      },
+      error: function(error) {
+        throw error;
+      }
+    });
+  });
+
+  $(".deletePokemon").on("click", function () {
+    event.preventDefault();
+    pokemonId = $(this).data("id");
+    $.ajax({
+      url: "/api/pokemons/" + pokemonId,
+      method: "DELETE",
+      success: function(result) {
+        console.log(result);
+        document.location.href = "/viewAllPokemon";
+      },
+      error: function(error) {
+        throw error;
+      }
+    });
+  });
+
+  $(".removePokemonAssociations").on("click", function () {
+    event.preventDefault();
+    teamId = $(this).data("id");
+    $.ajax({
+      url: "/api/teampokemon/team/" + teamId,
+      method: "DELETE",
+      success: function(result) {
+        console.log(result);
+        location.reload();
+      },
+      error: function(error) {
+        throw error;
+      }
+    });
+  });
+
+  $(".editOne").on("click", function () {
+    event.preventDefault();
+    pokemonId = $(this).data("id");
+    document.location.href = "/editPokemon/" + pokemonId;
+  });
+
+  $(".saveOne").on("click", function () {
+    event.preventDefault();
+    var pokemonId = $(this).data("id");
+    var nickname = $(this).data("name");
+    var newName;
+    if (!$(".nickname").val().trim()) {
+      newName = nickname;
+    } else {
+      newName = $(".nickname").val().trim();
     }
-    console.log("You submitted!");
-    $.put("/api/pokemons",
-      $(".pokemonName").val().trim()
-    )
-      .then(console.log("Submitted a team"));
+    console.log($(".nickname").val().trim());
+    $.ajax({
+      url: "/api/pokemons/" + pokemonId,
+      method: "PUT",
+      data: {nickname: newName},
+      success: function() {
+        document.location.href = "/";
+      },
+      error: function(error) {
+        throw error;
+      }
+    });
   });
 
-  $(".deletePokemon").on("click", function() {
+  $(".removeTeamAssociations").on("click", function () {
     event.preventDefault();
-    if (!$(".pokemonName").val().trim()) {
-      return;
-    }
-    console.log("You submitted!");
-    $.delete("/api/pokemons",
-      $(".pokemonName").val().trim()
-    )
-      .then(console.log("Submitted a team"));
+    pokemonId = $(this).data("id");
+    $.ajax({
+      url: "/api/teampokemon/pokemon/" + pokemonId,
+      method: "DELETE",
+      success: function(result) {
+        console.log(result);
+        location.reload();
+      },
+      error: function(error) {
+        throw error;
+      }
+    });
   });
-  $(".addToMainPage").on("click", function(){
-    event.preventDefault();
-    document.location.href="/";
-  });
-
-  $(".addToTeam").on("click", function(){
-    event.preventDefault();
-    document.location.href="/editTeam";
-  });
-  // $(".addTeamPage").on("click", function() {
-  //   event.preventDefault();
-  //   window.location.href="/addTeam";
-  // });
-
-  $(".addPokemonToTeam").on("click", function() {
-    event.preventDefault();
-    document.location.href="/addPokemon";
-  });
-
-
-  // $(".deletePokemon").on("click", function() {
-  //   event.preventDefault();
-  //   if (!$(".pokemonName").val().trim()) {
-  //     return;
-  //   }
-  //   console.log("You submitted!");
-  //   $.delete("/api/pokemons",
-  //     $(".pokemonName").val().trim()
-  //   )
-  //     .then(console.log("Submitted a team"));
-  // });
 });

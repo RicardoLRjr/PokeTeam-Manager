@@ -1,0 +1,9 @@
+<div class="container align">
+  <h1>List of All Added Pokemon</h1>
+  {{#each pokemons}}
+  <h2 class="pokemonname stack align">{{nickname}}
+  </h2>
+  <img class="stack align" src="https://img.pokemondb.net/artwork/vector/{{pokemonName}}.png" alt="picture of a {{pokemonName}}">
+  <button class="button is-primary addToTeam stack align" data-id={{id}} data-teamId={{../teamId}}>Add to a Team</button>
+  {{/each}}
+</div>
