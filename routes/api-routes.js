@@ -64,7 +64,7 @@ module.exports = function (app) {
   app.post("/api/pokemons", function (req, res) {
     console.log(req.body.name);
     P.getPokemonByName(req.body.name.toLowerCase())
-      .then((response) => {
+      .then( async function(response) {
         var pokeType1 = response.types[0].type.name;
         if (response.types[1]) {
           var pokeType2 = response.types[1].type.name;
@@ -72,7 +72,7 @@ module.exports = function (app) {
         var abilities = response.abilities[0].ability.name;
         var nickname = response.name;
         if (response.types[1]) {
-          db.Pokemon.create({
+          await db.Pokemon.create({
             pokemonSprite: response.sprites.front_default,
             pokedexId: response.id,
             pokemonName: response.name,
@@ -82,7 +82,7 @@ module.exports = function (app) {
             nickname: nickname.replace(/^./, nickname[0].toUpperCase()),
           });
         } else {
-          db.Pokemon.create({
+          await db.Pokemon.create({
             pokemonSprite: response.sprites.front_default,
             pokedexId: response.id,
             pokemonName: response.name,
@@ -94,79 +94,61 @@ module.exports = function (app) {
       })
       // Currently redirects too fast - doesn't display newly added Pokemon until refresh
       .then(function () {
-        res.redirect(200, "/");
+        res.send();
       })
       .catch((err) => console.log(err));
   });
 
-  // This now does two things: it searches the database by ID, and it makes an ajax call by name
-  // The former is used for the Edit Pokemon pages, while the latter is used for the Preview Pokemon card
-  // Normally, I wouldn't recommend doing this; this is more of a proof of concept and me being lazy
   app.get("/api/pokemons/:name", function (req, res) {
     var name = req.params.name.toLowerCase();
-    if (Number.isInteger(parseInt(name))) {
-      db.Pokemon.findOne({
-        where: {
-          id: req.params.name,
-        },
-        include: [db.Team],
-      }).then(function (dbPokemon) {
-        res.json(dbPokemon);
-      });
-    } else if (Number.isNaN(parseInt(name))) {
-      function pokemonCard() {
-        P.getPokemonByName(name).then((response) => {
-          var pokemonName = response.name;
-          var nickname = response.name.replace(
+    function pokemonCard() {
+      P.getPokemonByName(name).then((response) => {
+        var pokemonName = response.name;
+        var nickname = response.name.replace(
+          /^./,
+          response.name[0].toUpperCase()
+        );
+        var abilityName = [];
+        var ability = [];
+        var dexID = response.id;
+        var types = [];
+        for (var a = 0; a < response.abilities.length; a++) {
+          abilityName[a] = { name: response.abilities[a].ability.name };
+        }
+        for (var t = 0; t < response.types.length; t++) {
+          types[t] = response.types[t].type.name.replace(
             /^./,
-            response.name[0].toUpperCase()
+            response.types[t].type.name[0].toUpperCase()
           );
-          var abilityName = [];
-          var ability = [];
-          var dexID = response.id;
-          var types = [];
-          for (var a = 0; a < response.abilities.length; a++) {
-            abilityName[a] = { name: response.abilities[a].ability.name };
-          }
-          for (var t = 0; t < response.types.length; t++) {
-            types[t] = response.types[t].type.name.replace(
-              /^./,
-              response.types[t].type.name[0].toUpperCase()
-            );
-          }
-          async function abDesc(name) {
-            await P.getAbilityByName(name.name).then((data) => {
-              ability.push({
-                name: name.name.replace(
-                  /^./,
-                  name.name[0].toUpperCase()),
-                description: data.effect_entries[0].effect,
-              });
+        }
+        async function abDesc(name) {
+          await P.getAbilityByName(name.name).then((data) => {
+            ability.push({
+              name: name.name.replace(/^./, name.name[0].toUpperCase()),
+              description: data.effect_entries[0].effect,
             });
+          });
+        }
+        async function abName(abilityName) {
+          for (const name of abilityName) {
+            await abDesc(name);
           }
-          async function abName(abilityName) {
-            for (const name of abilityName) {
-              await abDesc(name);
-            }
-          }
-          async function abilities(abilityName) {
-            await abName(abilityName);
-            res.json({
-              pokemonName: pokemonName,
-              nickname: nickname,
-              pokedexId: dexID,
-              pokeType1: types[0],
-              pokeType2: types[1],
-              abilities: ability
-            });
-          }
-          abilities(abilityName);
-        });
-      }
-      pokemonCard();
-    } else {
-      res.send(console.log("I don't know what this is!"));
+        }
+        async function abilities(abilityName) {
+          await abName(abilityName);
+          res.json({
+            pokemonName: pokemonName,
+            nickname: nickname,
+            pokedexId: dexID,
+            pokeType1: types[0],
+            pokeType2: types[1],
+            abilities: ability,
+          });
+        }
+        abilities(abilityName);
+      });
     }
+    pokemonCard();
   });
 
   app.put("/api/pokemons/:id", function (req, res) {

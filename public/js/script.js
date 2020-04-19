@@ -61,11 +61,12 @@ $(document).ready(function () {
     if (!$(".pokemonName").val().trim()) {
       return;
     }
-    $.post("/api/pokemons/", { name: $(".pokemonName").val().trim() }).then(
-      () => {
-        document.location.href = "/viewAllPokemon";
-      }
-    );
+    $.post("/api/pokemons/", { name: $(".pokemonName").val().trim() })
+      .then(
+        () => {
+          document.location.href = "/viewAllPokemon";
+        }
+      );
   });
 
   $(".addPokemonToTeam").on("click", function () {
