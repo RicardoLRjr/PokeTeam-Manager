@@ -136,6 +136,29 @@ $(document).ready(function () {
     });
   });
 
+  $(".deleteFromTeam").on("click", function () {
+    event.preventDefault();
+    //console.log("deleteFromTeam (script.js): data = "+data);
+    var ids = $(this).data("ids");
+    console.log("deleteFromTeam (script.js): ids = "+ids);
+    var separatorIndex = ids.indexOf(":");
+    console.log("deleteFromTeam (script.js): separatorIndex = "+separatorIndex);
+    var pokemonId = ids.substring(0,separatorIndex);
+    var teamId = ids.substring(separatorIndex+1);
+    console.log("deleteFromTeam (script.js): pokemonId ="+pokemonId+" teamId = "+teamId);
+    $.ajax({
+      url: "/api/teampokemon/"+pokemonId+"/"+teamId,
+      method: "DELETE",
+      success: function(result) {
+        console.log(result);
+        location.reload();
+      },
+      error: function(error) {
+        throw error;
+      }
+    });
+  });
+
   $(".deletePokemon").on("click", function () {
     event.preventDefault();
     pokemonId = $(this).data("id");
