@@ -1,5 +1,6 @@
 $(document).ready(function () {
   console.log("Page loaded with script.js");
+
   $(".addTeam").on("click", function () {
     event.preventDefault();
     if (!$(".teamName").val().trim()) {
@@ -60,12 +61,11 @@ $(document).ready(function () {
     if (!$(".pokemonName").val().trim()) {
       return;
     }
-    $.post("/api/pokemons/", { name: $(".pokemonName").val().trim() })
-      .then(
-        () => {
-          document.location.href = "/viewAllPokemon";
-        }
-      );
+    $.post("/api/pokemons/", { name: $(".pokemonName").val().trim() }).then(
+      () => {
+        document.location.href = "/viewAllPokemon";
+      }
+    );
   });
 
   $(".addPokemonToTeam").on("click", function () {
@@ -125,6 +125,29 @@ $(document).ready(function () {
     teamId = $(this).data("id");
     $.ajax({
       url: "/api/teams/" + teamId,
+      method: "DELETE",
+      success: function(result) {
+        console.log(result);
+        location.reload();
+      },
+      error: function(error) {
+        throw error;
+      }
+    });
+  });
+
+  $(".deleteFromTeam").on("click", function () {
+    event.preventDefault();
+    //console.log("deleteFromTeam (script.js): data = "+data);
+    var ids = $(this).data("ids");
+    console.log("deleteFromTeam (script.js): ids = "+ids);
+    var separatorIndex = ids.indexOf(":");
+    console.log("deleteFromTeam (script.js): separatorIndex = "+separatorIndex);
+    var pokemonId = ids.substring(0,separatorIndex);
+    var teamId = ids.substring(separatorIndex+1);
+    console.log("deleteFromTeam (script.js): pokemonId ="+pokemonId+" teamId = "+teamId);
+    $.ajax({
+      url: "/api/teampokemon/"+pokemonId+"/"+teamId,
       method: "DELETE",
       success: function(result) {
         console.log(result);
@@ -214,4 +237,3 @@ $(document).ready(function () {
     });
   });
 });
-

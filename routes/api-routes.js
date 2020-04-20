@@ -217,4 +217,15 @@ module.exports = function (app) {
       res.json(dbTeam);
     });
   });
+
+  app.delete("/api/teampokemon/:pokemonId/:teamId", function (req, res) {
+    db.TeamPokemon.destroy({
+      where: {
+        pokemonId: req.params.pokemonId,
+        teamId: req.params.teamId
+      },
+    }).then(function (dbTeam) {
+      res.json(dbTeam);
+    });
+  });
 };
