@@ -1,13 +1,14 @@
 const express = require("express");
-
+const compression = require("compression")
 const PORT = process.env.PORT || 3000;
 
 const app = express();
 
 const db = require("./models");
 
-app.use(express.static("public"));
 
+app.use(express.static("public"));
+app.use(compression());
 // if (process.env.JAWSDB_URL) {
 //   console.log("successfully connected");
 //   connection = mysql.createConnection(process.env.JAWSDB_URL);
