@@ -28,6 +28,25 @@
  ## License:
  ISC 
 
+## Screenshots:
+![Main-page](public/images/SC1.png)
+
+![page](public/images/SC2.png)
+
+![page](public/images/SC3.png)
+
+![page](public/images/SC4.png)
+
+![page](public/images/SC5.png)
+
+![page](public/images/SC6.png)
+
+![page](public/images/SC7.png)
+
+![page](public/images/SC8.png)
+
+![page](public/images/SC9.png)
+
  ## Tests:
  N/a
 
