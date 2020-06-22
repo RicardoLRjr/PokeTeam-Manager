@@ -1,5 +1,7 @@
-# PokeTeam Manager. 
+## PokeTeam Manager: 
 
+## Link to Deployed Site:
+http://game-related-app.herokuapp.com/
 
  ## Contributing Authors: 
  Chidi Uwakwe, John Senak, Pallavi Nama, Tucker Hembree, and Ricardo Russ 
