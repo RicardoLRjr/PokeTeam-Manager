@@ -1,14 +1,14 @@
 ## PokeTeam Manager: 
 
+ ## Contributing Authors: 
+ Chidi Uwakwe, John Senak, Pallavi Nama, Tucker Hembree, and Ricardo Russ 
+ 
+ ## Project Name:
+ PokeTeam Manager
+ 
 ## Link to Deployed Site:
 http://game-related-app.herokuapp.com/
 
- ## Contributing Authors: 
- Chidi Uwakwe, John Senak, Pallavi Nama, Tucker Hembree, and Ricardo Russ 
-
-
- ## Project Name:
- PokeTeam Manager
 
  ## Description:
  This project is a Pokemon Team Manager, which uses the existing PokeAPI to build a tool that allows you to build a standard competitive Pokemon team! 
@@ -50,9 +50,3 @@ http://game-related-app.herokuapp.com/
 
  ## Miscellaneous:
  Made with Love!
-
-
- Badge:
- https://img.shields.io/badge/Current-Maintained-red.svg)(https://shields.io/) 
-
- <img src= https://avatars2.githubusercontent.com/u/60279300?v=4> 
