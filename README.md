@@ -16,9 +16,8 @@ http://game-related-app.herokuapp.com/
  ## Table of Contents: 
  # Installation 
  # Usage 
- # License 
- # Contributing Authors 
- # Tests 
+ # License
+ # Screenshots 
  # Miscellaneous 
 
  ## Installation Instructions:
@@ -48,9 +47,6 @@ http://game-related-app.herokuapp.com/
 ![page](public/images/SC8.png)
 
 ![page](public/images/SC9.png)
-
- ## Tests:
- N/a
 
  ## Miscellaneous:
  Made with Love!
